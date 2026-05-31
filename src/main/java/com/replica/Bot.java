@@ -26,6 +26,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * RAILWAY DEPLOYMENT META:
+ * NIXPACKS_START_CMD=java -jar target/replica-ad-bot-1.0-SNAPSHOT.jar
+ */
 public class Bot extends ListenerAdapter {
 
     private static final String SLOTS_FILE = "slots.json";
