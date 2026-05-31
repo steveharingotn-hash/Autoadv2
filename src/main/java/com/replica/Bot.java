@@ -26,10 +26,6 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.*;
 
-/**
- * RAILWAY DEPLOYMENT META:
- * NIXPACKS_START_CMD=java -jar target/replica-ad-bot-1.0-SNAPSHOT.jar
- */
 public class Bot extends ListenerAdapter {
 
     private static final String SLOTS_FILE = "slots.json";
@@ -83,10 +79,10 @@ public class Bot extends ListenerAdapter {
             String defaultDelay = data != null ? String.valueOf(data.optInt("delay", 30)) : "30";
             String defaultMsg = data != null ? data.optString("message", "") : "";
 
-            TextInput tokenInput = TextInput.create("t_token", "Slot Bot Token", TextInputStyle.SHORT).setDefaultValue(defaultToken).setRequired(true).build();
-            TextInput channelsInput = TextInput.create("t_channels", "Channel IDs (comma separated)", TextInputStyle.SHORT).setDefaultValue(defaultChannels).setRequired(true).build();
-            TextInput delayInput = TextInput.create("t_delay", "Delay in seconds", TextInputStyle.SHORT).setDefaultValue(defaultDelay).setRequired(true).build();
-            TextInput msgInput = TextInput.create("t_message", "Ad Message", TextInputStyle.PARAGRAPH).setDefaultValue(defaultMsg).setRequired(true).build();
+            TextInput tokenInput = TextInput.create("t_token", "Slot Bot Token", TextInputStyle.SHORT).setValue(defaultToken).setRequired(true).build();
+            TextInput channelsInput = TextInput.create("t_channels", "Channel IDs (comma separated)", TextInputStyle.SHORT).setValue(defaultChannels).setRequired(true).build();
+            TextInput delayInput = TextInput.create("t_delay", "Delay in seconds", TextInputStyle.SHORT).setValue(defaultDelay).setRequired(true).build();
+            TextInput msgInput = TextInput.create("t_message", "Ad Message", TextInputStyle.PARAGRAPH).setValue(defaultMsg).setRequired(true).build();
 
             Modal modal = Modal.create("modal_setup_1", "Setup Slot 1 - Token Configuration")
                     .addComponents(ActionRow.of(tokenInput), ActionRow.of(channelsInput), ActionRow.of(delayInput), ActionRow.of(msgInput))
@@ -152,7 +148,8 @@ public class Bot extends ListenerAdapter {
         JSONObject data = slotsData.getJSONObject(slotId);
         String token = data.getString("token");
         List<String> channels = jsonArrayToList(data.getJSONArray("channels"));
-        int delay = data.getInt("delay");
+        int delay = data.getInt;
+        int delayVal = data.getInt("delay");
         String message = data.getString("message");
 
         Runnable task = () -> {
@@ -178,7 +175,7 @@ public class Bot extends ListenerAdapter {
             }
         };
 
-        ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(task, 0, delay, TimeUnit.SECONDS);
+        ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(task, 0, delayVal, TimeUnit.SECONDS);
         activeSlots.put(slotId, future);
     }
 
