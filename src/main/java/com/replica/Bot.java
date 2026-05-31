@@ -148,7 +148,6 @@ public class Bot extends ListenerAdapter {
         JSONObject data = slotsData.getJSONObject(slotId);
         String token = data.getString("token");
         List<String> channels = jsonArrayToList(data.getJSONArray("channels"));
-        int delay = data.getInt;
         int delayVal = data.getInt("delay");
         String message = data.getString("message");
 
